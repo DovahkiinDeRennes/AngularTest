@@ -1,9 +1,11 @@
-<div class="mx-auto flex   flex-row flex-grow  justify-between  border-5 border-green-300 p-10 h-full ">
+<div class="mx-[6%] grid grid-cols-1 lg:grid-cols-2 gap-10  p-10 h-full">
     
-  <div class="premiere div flex flex-col ">
+  <!-- Première div -->
+  <div class="premiere div flex flex-col">
     <p class="bg-yellow-300">Ceci est la page du component carbon-footprint</p>
-    <div class="mt-5 flex flex-row">
-
+    
+    <!-- Section consommation pour 100 km -->
+    <div class="mt-5 flex flex-row bg-white shadow-lg rounded-lg p-4">
       <span [ngClass]="{
         'font-bold text-green-500': distanceKm > 500,
         'font-bold text-red-500': distanceKm < 100
@@ -21,69 +23,75 @@
         , le nombre de km = {{ distanceKm }} km et la consommation totale = {{ consommationTotal }} litre
       </span>
     </div>
-    <div *ngIf="consommationPour100Km > 7">
+
+    <!-- Message de consommation élevée -->
+    <div class="mt-5 flex flex-row bg-white shadow-lg rounded-lg p-4" *ngIf="consommationPour100Km > 7">
       <p class="text-red-500">Attention, votre consommation est élevée</p>
     </div>
-    <div *ngIf="consommationPour100Km < 4">
-        <p class="text-green-500">Félicitations, votre consommation est faible</p>
-      </div>
-      <div>
-        <button (click)="add100km()" class="border p-2 rounded-md items-center bg-white"> + 100 KM </button>
-        <button (click)="del100km()" class="border p-2 rounded-md items-center bg-white"> - 100 KM </button>
-      </div>
-
-      <div class="mt-5 w-96">
-        <table class="min-w-full table-auto border-collapse">
-          <thead class="bg-gray-100">
-            <tr>
-              <th class="px-4 py-2 border-b text-left">Distance en km</th>
-              <th class="px-4 py-2 border-b text-left">Consommation pour 100 km</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Boucle avec *ngFor pour afficher les voyages -->
-            <tr *ngFor="let voyage of voyages" class="hover:bg-gray-50">
-              <td class="px-4 py-2 border-b">{{ voyage.distanceKm }}</td>
-              <td class="px-4 py-2 border-b">{{ voyage.consommationPour100Km | number:'1.2-2' }}</td>
-            </tr>
-          </tbody>
-          <thead class="bg-gray-100">
-            <tr>
-              <th class="px-4 py-2 border-b text-left">Total des voyages</th>
-              <th class="px-4 py-2 border-b text-left">Moyenne des consommations pour 100 km</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Boucle avec *ngFor pour afficher les voyages -->
-            <tr class="hover:bg-gray-50">
-              <td class="px-4 py-2 border-b">{{ getNombreDeVoyages() }}</td>
-              <td class="px-4 py-2 border-b">{{ getMoyenneConsommation()| number:'1.2-2' }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="mt-5 w-96">
-        <h3>Ajouter un nouveau voyage</h3>
-        <form class="flex gap-5 flex-col">
-          <label for="distanceKm">Distance en km: </label>
-          <input class="border w-full rounded-md bg-gray-200" type="number" id="distanceKm" [(ngModel)]="newVoyage.distanceKm" name="distanceKm" required>
-      
-          <label for="consommationPour100Km">Consommation en litre sur 100 km: </label>
-          <input class="border w-full rounded-md bg-gray-200" type="number" id="consommationPour100Km" [(ngModel)]="newVoyage.consommationPour100Km" name="consommationPour100Km" required>
-      
-          <button class="border p-2 rounded-md items-center bg-white" (click)="ajouterVoyage()">Ajouter</button>
-        </form>
-      </div>
-  </div>
     
-
-            
-    <div class="deuxieme div">
-      <app-carbon-footprint-form></app-carbon-footprint-form>
+    <!-- Message de consommation faible -->
+    <div class="mt-5 flex flex-row bg-white shadow-lg rounded-lg p-4" *ngIf="consommationPour100Km < 4">
+        <p class="text-green-500">Félicitations, votre consommation est faible</p>
     </div>
 
+    <!-- Boutons pour ajuster la distance -->
+    <div class="mt-5 flex flex-row bg-white shadow-lg rounded-lg p-4">
+      <button (click)="add100km()" class="border p-2 rounded-md items-center bg-white"> + 100 KM </button>
+      <button (click)="del100km()" class="border p-2 rounded-md items-center bg-white"> - 100 KM </button>
+    </div>
+
+    <!-- Table des voyages -->
+    <div class="mt-5 flex flex-row bg-white shadow-lg rounded-lg p-4 w-full">
+      <table class="min-w-full table-auto border-collapse">
+        <thead class="bg-black">
+          <tr>
+            <th class="px-4 py-2 border-b text-left text-white">Distance en km</th>
+            <th class="px-4 py-2 border-b text-left text-white">Consommation pour 100 km</th>
+            <th class="px-4 py-2 border-b text-left text-white">Quantité de CO2</th>
+          </tr>
+        </thead>
+        <tbody class="bg-black">
+          <!-- Boucle avec *ngFor pour afficher les voyages -->
+          <tr *ngFor="let voyage of voyages" class="hover:bg-gray-50 text-white hover:text-black ">
+            <td class="px-4 py-2 border-b">{{ voyage.distanceKm }}</td>
+            <td class="px-4 py-2 border-b">{{ voyage.consommationPour100Km | number:'1.2-2' }}</td>
+            <td class="px-4 py-2 border-b">{{ voyage.quantiteCO2 | number:'1.2-2' }}</td>
+          </tr>
+        </tbody>
+        <thead class="bg-black">
+          <tr>
+            <th class="px-4 py-2 border-b text-left text-white">Moyenne des km parcourus</th>
+            <th class="px-4 py-2 border-b text-left text-white">Moyenne des consommations pour 100 km</th>
+            <th class="px-4 py-2 border-b text-left text-white">Moyenne des quantité de CO2</th>
+          </tr>
+        </thead>
+        <tbody class="bg-black">
+          <tr class="hover:bg-gray-50 text-white hover:text-black ">
+            <td class="px-4 py-2 border-b">{{ moyenneDistanceKm | number:'1.2-2' }}</td>
+            <td class="px-4 py-2 border-b">{{ moyenneConsomation| number:'1.2-2' }}</td>
+            <td class="px-4 py-2 border-b">{{ moyenneC02| number:'1.2-2' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Formulaire pour ajouter un nouveau voyage -->
+    <div class="mt-5 flex flex-col bg-white shadow-lg rounded-lg p-4 w-full">
+      <h3>Ajouter un nouveau voyage</h3>
+      <form class="flex gap-5 flex-col">
+        <label for="distanceKm">Distance en km: </label>
+        <input class="border w-full rounded-md bg-gray-200" type="number" id="distanceKm" [(ngModel)]="newVoyage.distanceKm" name="distanceKm" required>
+    
+        <label for="consommationPour100Km">Consommation en litre sur 100 km: </label>
+        <input class="border w-full rounded-md bg-gray-200" type="number" id="consommationPour100Km" [(ngModel)]="newVoyage.consommationPour100Km" name="consommationPour100Km" required>
+    
+        <button class="border p-2 rounded-md items-center bg-white" (click)="ajouterVoyage()">Ajouter</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Deuxième div (formulaire ou autre contenu) -->
+  <div class="deuxieme div">
+    <app-carbon-footprint-form></app-carbon-footprint-form>
+  </div>
 </div>
-
-
-  

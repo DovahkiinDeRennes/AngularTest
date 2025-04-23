@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CarbonFootprintFormComponent } from '../carbon-footprint-form/carbon-footprint-form.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CarbonFootprintComputeService } from '../carbon-footprint-compute.service';
 
 @Component({
   selector: 'app-carbon-footprint',
@@ -11,6 +12,35 @@ import { FormsModule } from '@angular/forms';
 })
 export class CarbonFootprintComponent {
 
+  voyages: any[] = [];
+
+  quantiteCO2: number;
+
+  moyenneDistanceKm : number;
+
+  moyenneConsomation : number;
+
+  moyenneC02 : number;
+
+   randomDistanceKm = Math.floor(Math.random() * 1000) + 1;
+   randomConsommation = (Math.random() * (10 - 3) + 3).toFixed(2);
+
+  newVoyage = {
+    distanceKm: this.randomDistanceKm,
+    consommationPour100Km: parseFloat(this.randomConsommation),
+    quantiteCO2: 0
+  };
+
+  private addVoyages: any;
+
+  constructor(private carbonFootprintComputeService : CarbonFootprintComputeService) { 
+    this.voyages = this.carbonFootprintComputeService.getVoyages();
+
+    this.moyenneDistanceKm = this.carbonFootprintComputeService.getMoyenneDistance();
+    this.moyenneConsomation = this.carbonFootprintComputeService.getMoyenneConsommation();
+    this.moyenneC02 = this.carbonFootprintComputeService.getMoyenneQuantiteCO2();
+    this.quantiteCO2 = this.carbonFootprintComputeService.calculeCO2(this.distanceKm, this.consommationPour100Km);
+  }
 
   distanceKm : number = 200;
   consommationPour100Km : number = 2.5;
@@ -18,50 +48,46 @@ export class CarbonFootprintComponent {
 
   consommationTotal:number = (this.distanceKm * this.consommationPour100Km)/100;
 
-  voyages = [
-    { distanceKm: 50, consommationPour100Km: 5 },
-    { distanceKm: 150, consommationPour100Km: 6 },
-    { distanceKm: 250, consommationPour100Km: 7 },
-    { distanceKm: 350, consommationPour100Km: 8 },
-    { distanceKm: 450, consommationPour100Km: 9 }
-]
+  
 
 getNombreDeVoyages(): number {
   return this.voyages.length;
 }
 
-getMoyenneConsommation(): number {
-  let totalVoyage = this.voyages.length;
-  let totalConsommation = 0; 
+
+
+
+loadVoyages(): void {
+  this.voyages = this.carbonFootprintComputeService.getVoyages();
+  this.moyenneDistanceKm = this.carbonFootprintComputeService.getMoyenneDistance();
+  this.moyenneConsomation = this.carbonFootprintComputeService.getMoyenneConsommation();
+  this.moyenneC02 = this.carbonFootprintComputeService.getMoyenneQuantiteCO2();
+  this.quantiteCO2 = this.carbonFootprintComputeService.calculeCO2(this.distanceKm, this.consommationPour100Km);
+}
+ajouterVoyage(): void {
+
+  this.newVoyage.quantiteCO2 = this.carbonFootprintComputeService.calculeCO2(
+    this.newVoyage.distanceKm,
+    this.newVoyage.consommationPour100Km
+  );
+
   
-  for (let voyage of this.voyages) {
-    totalConsommation += voyage.consommationPour100Km;
-  }
-  
-  return totalConsommation / totalVoyage;
+  this.carbonFootprintComputeService.addVoyage(this.newVoyage);
+
+
+  this.randomDistanceKm = Math.floor(Math.random() * 1000) + 1;
+  this.randomConsommation = (Math.random() * (10 - 3) + 3).toFixed(2);
+
+  this.newVoyage = {
+    distanceKm: this.randomDistanceKm,
+    consommationPour100Km: parseFloat(this.randomConsommation),
+    quantiteCO2: 0
+  };
+
+  // 4. Mise à jour de l'affichage
+  this.loadVoyages();
 }
 
-newVoyage = {
-  distanceKm: 0,
-  consommationPour100Km: 0
-};
-
-
-
-ajouterVoyage() {
-   
-    this.voyages.push({
-      distanceKm: this.newVoyage.distanceKm,
-      consommationPour100Km: this.newVoyage.consommationPour100Km
-    });
-
-   
-    this.newVoyage = { distanceKm: 0, consommationPour100Km: 0 };
-  
-  
-}
-
-  
   add100km(){
     this.distanceKm += 100;
     console.log( this.distanceKm + 100)
