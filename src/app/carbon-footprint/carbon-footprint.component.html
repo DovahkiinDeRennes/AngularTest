@@ -35,9 +35,9 @@
     </div>
 
     <!-- Boutons pour ajuster la distance -->
-    <div class="mt-5 flex flex-row bg-white shadow-lg rounded-lg p-4">
-      <button (click)="add100km()" class="border p-2 rounded-md items-center bg-white"> + 100 KM </button>
-      <button (click)="del100km()" class="border p-2 rounded-md items-center bg-white"> - 100 KM </button>
+    <div class="mt-5 flex flex-row bg-white shadow-lg rounded-lg p-4 gap-5">
+      <button (click)="add100km()" class="border border-blue-500 text-blue-500 bg-white rounded-md px-6 py-2 font-semibold transition duration-300 ease-in-out hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"> + 100 KM </button>
+      <button (click)="del100km()" class="border border-blue-500 text-blue-500 bg-white rounded-md px-6 py-2 font-semibold transition duration-300 ease-in-out hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"> - 100 KM </button>
     </div>
 
     <!-- Table des voyages -->
@@ -80,18 +80,18 @@
       <h3>Ajouter un nouveau voyage</h3>
       <form class="flex gap-5 flex-col">
         <label for="distanceKm">Distance en km: </label>
-        <input class="border w-full rounded-md bg-gray-200" type="number" id="distanceKm" [(ngModel)]="newVoyage.distanceKm" name="distanceKm" required>
+        <input class="border border-gray-300 rounded-lg p-2 w-full  text-gray-800" type="number" id="distanceKm" [(ngModel)]="newVoyage.distanceKm" name="distanceKm" required>
     
         <label for="consommationPour100Km">Consommation en litre sur 100 km: </label>
-        <input class="border w-full rounded-md bg-gray-200" type="number" id="consommationPour100Km" [(ngModel)]="newVoyage.consommationPour100Km" name="consommationPour100Km" required>
+        <input class="border border-gray-300 rounded-lg p-2 w-full  text-gray-800" type="number" id="consommationPour100Km" [(ngModel)]="newVoyage.consommationPour100Km" name="consommationPour100Km" required>
     
-        <button class="border p-2 rounded-md items-center bg-white" (click)="ajouterVoyage()">Ajouter</button>
+        <button class="border border-blue-500 text-blue-500 bg-white rounded-md px-6 py-2 font-semibold transition duration-300 ease-in-out hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" (click)="ajouterVoyage()">Ajouter</button>
       </form>
     </div>
   </div>
 
   <!-- Deuxième div (formulaire ou autre contenu) -->
-  <div class="deuxieme div">
+  <div class="deuxieme div w-full">
     <app-carbon-footprint-form></app-carbon-footprint-form>
   </div>
 </div>

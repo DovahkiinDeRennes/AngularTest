@@ -5,14 +5,15 @@
     </div>
     
     <div class="flex flex-row justify-between items-center h-full">
-        <div class="flex flex-row gap-5 ">
+        <div class="flex flex-row gap-5 ">   
             <h1 class="bg-yellow-300 ">Ceci est le component header</h1>
-            <span>Bienvenue, {{ nomUtilisateur }}</span>
+            <p>Bienvenue : {{ pseudo }}</p>
         </div>
 
         <nav class="flex flex-row gap-5">
-            <a>Accueil</a>
-            <a>Contact</a>
+            <a  href="/">Bienvenue</a>
+            <a href="carbon">Carbon-footprint</a>
+            <a href="profil/{{pseudo}}">Profil</a>
         </nav>
     </div>
 </header>

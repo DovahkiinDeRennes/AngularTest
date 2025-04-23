@@ -1,27 +1,12 @@
-<div class="flex flex-col gap-4">
-    <h1 class="text-blue-500">Bienvenue sur Angular !</h1>
-  <div class="flex flex-row gap-4">
-    <div class="flex flex-col">
-      <p class="text-3xl font-bold underline text-red-500">
-        Hello world!
-      </p>
-      <p class="text-3xl font-bold underline text-red-500">
-        2ème World!
-      </p>
-      <p class="text-3xl font-bold underline text-red-500">
-        3ème World!
-      </p>
-    </div>
-    <div class="flex flex-col">
-      <p class="text-3xl font-bold underline text-green-500">
-        Test World!
-      </p>
-      <p class="text-3xl font-bold underline text-green-500">
-        2ème Test!
-      </p>
-      <p class="text-3xl font-bold underline text-green-500">
-        3ème Test!
-      </p>
-    </div>
+<div class="flex flex-col gap-4 h-screen justify-center">
+  <div class="flex flex-col mx-auto  flex  bg-white shadow-lg rounded-lg p-5">
+    <h1 class="text-blue-500 mb-5">Bienvenue sur Mon projet Angular !</h1>
+        <div class="flex flex-col ">
+          <form class="flex flex-col gap-5">
+            <label for="pseudo">PSEUDO :</label>
+            <input class="border border-gray-300 rounded-lg p-2 w-full  text-gray-800"  id="pseudo" type="text" [(ngModel)]="pseudo" name="pseudo" placeholder="pseudo...."/>
+            <button class="border border-blue-500 text-blue-500 bg-white rounded-md px-6 py-2 font-semibold transition duration-300 ease-in-out hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" type="button" (click)="newUser()">Se connecter</button>
+          </form>
+        </div>
   </div>
   </div>
