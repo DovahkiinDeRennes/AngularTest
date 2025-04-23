@@ -8,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class FooterComponent {
 
+  now: Date = new Date();
+  formattedDate: string = this.now.toLocaleDateString('fr-FR'); 
+
+
 }
